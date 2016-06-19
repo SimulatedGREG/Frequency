@@ -22,6 +22,7 @@
 </style>
 
 <template>
+  <audio v-el:player :src="songPath"></audio>
   <router-view></router-view>
 </template>
 
@@ -29,6 +30,11 @@
   import store from 'src/vuex/store'
 
   export default {
+    data () {
+      return {
+        songPath: 'file:///Volumes/MEDIA/Music/All Sons & Daughters/Season One/01 Alive.mp3'
+      }
+    },
     store
   }
 </script>

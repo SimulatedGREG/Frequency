@@ -24,6 +24,9 @@ function createWindow () {
     frame: false,
     height: 512,
     resizable: false,
+    webPreferences: {
+      webSecurity: false
+    },
     width: 512
   })
 

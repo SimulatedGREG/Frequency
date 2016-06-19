@@ -1,3 +1,5 @@
-export function counters (state) {
-  return state.counters.all
+// import lodash from 'lodash'
+
+export function library (state) {
+  return state.library.index
 }

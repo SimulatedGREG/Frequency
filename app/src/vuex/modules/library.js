@@ -1,3 +1,15 @@
+import mkdirp from 'mkdirp'
+import path from 'path'
+import { LocalStorage } from 'node-localstorage'
+
+const indexDir = process.env.NODE_ENV === 'production'
+  ? path.join(__root, 'index')
+  : '/Users/gregholguin/Documents/Projects/Personal/frequency/app/dist/index'
+
+mkdirp.sync(indexDir)
+
+const localStorage = new LocalStorage(indexDir)
+
 import {
   REMOVE_SINGLE_INDEX,
   UPDATE_INDEX,

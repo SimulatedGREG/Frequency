@@ -47,6 +47,7 @@
   import Controls from './NowPlayingView/Controls'
   import Duration from './NowPlayingView/Duration'
   import Info from './NowPlayingView/Info'
+  import { library } from 'src/vuex/getters'
 
   export default {
     components: {
@@ -58,6 +59,9 @@
       return {
         artwork: 'url("http://www.jesusfreakhideout.com/cdreviews/covers/empires.jpg")'
       }
+    },
+    vuex: {
+      getters: { library }
     }
   }
 </script>

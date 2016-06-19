@@ -12,15 +12,14 @@ const dialog = remote.dialog
 
 function parseMetadata (library) {
   Object.keys(library).forEach(k => {
-    let stream = mm(fs.createReadStream(k), (err, metadata) => {
+    /* eslint-disable no-new */
+    mm(fs.createReadStream(k), (err, metadata) => {
       if (err) console.error(err)
 
       store.dispatch(UPDATE_SINGLE_INDEX, {
         path: k,
         metadata
       })
-
-      stream.close()
     })
   })
 }

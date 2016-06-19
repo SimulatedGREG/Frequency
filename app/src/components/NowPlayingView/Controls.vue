@@ -70,23 +70,57 @@
       </div>
       <div class="volume-wrapper">
         <span class="left">Volume</span>
-        <span class="right">68%</span>
-        <div class="volume">
-          <div class="volume-level" style="width: 68%;"></div>
+        <span class="right">{{ volumeLevel }}</span>
+        <div class="volume" @click="adjustVolume">
+          <div class="volume-level" :style="{ width: volumeLevel }"></div>
         </div>
       </div>
     </div>
     <div class="primary">
-      <i class="material-icons play">play_arrow</i>
+      <i class="material-icons play" @click="togglePlayback">
+        <span v-if="isPlaying">pause</span>
+        <span v-else>play_arrow</span>
+      </i>
     </div>
   </div>
 </template>
 
 <script>
+  import { library } from 'src/vuex/getters'
+
   export default {
+    computed: {
+      files () {
+        return Object.keys(this.library)
+      },
+      volumeLevel () {
+        return (this.volume * 100).toString() + '%'
+      }
+    },
     data () {
       return {
+        isPlaying: false,
+        player: this.$root.$els.player,
+        volume: 0.3
+      }
+    },
+    methods: {
+      adjustVolume (e) {
+        console.log(e)
+      },
+      togglePlayback () {
+        if (this.isPlaying) this.player.pause()
+        else this.player.play()
 
+        this.isPlaying = !this.isPlaying
+      }
+    },
+    vuex: {
+      getters: { library }
+    },
+    watch: {
+      'volume' (val) {
+        this.player.volume = val
       }
     }
   }
