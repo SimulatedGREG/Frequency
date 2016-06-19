@@ -4,6 +4,7 @@
     background-size: cover !important;
     height: 512px;
     width: 512px;
+    -webkit-app-region: drag;
   }
 
   .bottom {
@@ -13,6 +14,7 @@
     position: absolute;
     transform: translateX(-50%);
     width: calc(100% - 40px);
+    -webkit-app-region: no-drag;
   }
 
   .bottom-bg {
@@ -20,7 +22,7 @@
     background-size: cover;
     bottom: 0;
     filter: blur(6px);
-    height: 138px;
+    height: 144px;
     position: absolute;
     width: 100%;
   }

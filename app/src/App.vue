@@ -8,15 +8,13 @@
     overflow: hidden;
   }
 
+  ::selection { background: transparent; }
+
   html,
   body {
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-  }
-
-  body {
-    -webkit-app-region: drag;
-    font-family: 'Roboto', sans-serif;
   }
 
   .left { float: left; }
