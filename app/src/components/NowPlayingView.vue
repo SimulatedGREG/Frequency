@@ -1,4 +1,6 @@
-<style lang="scss" scoped>
+<style lang="scss">
+  i:active { color: white!important; }
+
   .bg {
     background-position: center !important;
     background-size: cover !important;

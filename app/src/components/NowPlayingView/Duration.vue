@@ -25,7 +25,7 @@
     <span class="right">5:42</span>
   </div>
   <div class="progress-bar">
-    <div class="progress" style="width: 37%;"></div>
+    <div class="progress" style="width: 27%;"></div>
   </div>
 </template>
 
