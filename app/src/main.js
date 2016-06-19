@@ -5,6 +5,7 @@ import Router from 'vue-router'
 
 import App from './App'
 import routes from './routes'
+import './globalShortcuts'
 
 Vue.use(Electron)
 Vue.use(Resource)
