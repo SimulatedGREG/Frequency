@@ -1,5 +1,7 @@
 import {
-  UPDATE_INDEX
+  REMOVE_SINGLE_INDEX,
+  UPDATE_INDEX,
+  UPDATE_SINGLE_INDEX
 } from '../mutation-types'
 
 const state = {
@@ -7,8 +9,15 @@ const state = {
 }
 
 const mutations = {
-  [UPDATE_INDEX] (state, files) {
-    state.index = files
+  [REMOVE_SINGLE_INDEX] (state, key) {
+    delete state.index[key]
+  },
+  [UPDATE_INDEX] (state, library, cb) {
+    state.index = library
+    cb(library)
+  },
+  [UPDATE_SINGLE_INDEX] (state, { path, metadata }) {
+    state.index[path] = metadata
   }
 }
 
