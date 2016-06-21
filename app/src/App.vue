@@ -22,22 +22,27 @@
 </style>
 
 <template>
-  <audio v-el:player :src="songPath"></audio>
+  <audio v-el:player :src="'file://' + queue[currentSong].path"></audio>
   <router-view></router-view>
 </template>
 
 <script>
   import store from 'src/vuex/store'
+  import {
+    currentSong,
+    queue
+  } from 'src/vuex/getters'
 
   export default {
-    data () {
-      return {
-        songPath: 'file:///Volumes/MEDIA/Music/All Sons & Daughters/Season One/10 Spirit Speaks.mp3'
-      }
-    },
     compiled () {
       window.bindAudio()
     },
-    store
+    store,
+    vuex: {
+      getters: {
+        currentSong,
+        queue
+      }
+    }
   }
 </script>

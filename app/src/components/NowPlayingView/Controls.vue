@@ -79,7 +79,7 @@
       <div class="flex">
         <i class="material-icons">repeat</i>
         <i class="material-icons">skip_previous</i>
-        <i class="material-icons">skip_next</i>
+        <i class="material-icons" @click="nextTrack">skip_next</i>
       </div>
       <div class="volume-wrapper">
         <span class="left">Volume</span>
@@ -99,13 +99,11 @@
 </template>
 
 <script>
-  import { library } from 'src/vuex/getters'
+  import { setCurrentSong } from 'src/vuex/actions'
+  import { currentSong } from 'src/vuex/getters'
 
   export default {
     computed: {
-      files () {
-        return Object.keys(this.library)
-      },
       volumeLevel () {
         return (this.volume * 100).toString() + '%'
       }
@@ -143,6 +141,9 @@
         this.$els.volume.addEventListener('mousemove', e => this.adjustVolume(e, 'mm'))
         this.$els.volume.addEventListener('mouseup', e => this.adjustVolume(e, 'mu'))
       },
+      nextTrack () {
+        this.setCurrentSong(this.currentSong + 1)
+      },
       togglePlayback () {
         if (this.isPlaying) this.$player.pause()
         else this.$player.play()
@@ -154,7 +155,8 @@
       this.bindVolumeEvents()
     },
     vuex: {
-      getters: { library }
+      actions: { setCurrentSong },
+      getters: { currentSong }
     },
     watch: {
       'volume' (val) {

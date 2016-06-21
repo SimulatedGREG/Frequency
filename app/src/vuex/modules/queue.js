@@ -1,11 +1,20 @@
-import {} from '../mutation-types'
+import {
+  SET_CURRENT_SONG,
+  SET_ALBUM
+} from '../mutation-types'
 
 const state = {
-  all: []
+  album: [],
+  currentSong: 0
 }
 
 const mutations = {
-
+  [SET_CURRENT_SONG] (state, index) {
+    state.currentSong = index
+  },
+  [SET_ALBUM] (state, album) {
+    state.album = album
+  }
 }
 
 export default {

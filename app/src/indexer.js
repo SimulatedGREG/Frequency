@@ -28,6 +28,8 @@ function parseMetadata (library) {
     mm(fs.createReadStream(library[i].path), (err, metadata) => {
       if (err) console.error(err)
 
+      delete metadata.picture
+
       store.dispatch(UPDATE_SINGLE_INDEX, library[i].path, metadata)
     })
   }

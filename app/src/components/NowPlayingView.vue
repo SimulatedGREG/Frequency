@@ -47,7 +47,7 @@
   import Controls from './NowPlayingView/Controls'
   import Duration from './NowPlayingView/Duration'
   import Info from './NowPlayingView/Info'
-  import { library } from 'src/vuex/getters'
+  import { queue } from 'src/vuex/getters'
 
   export default {
     components: {
@@ -55,13 +55,14 @@
       Duration,
       Info
     },
-    data () {
-      return {
-        artwork: 'url("http://www.jesusfreakhideout.com/cdreviews/covers/empires.jpg")'
+    computed: {
+      artwork () {
+        // this.queue[0]
+        return 'url("http://www.jesusfreakhideout.com/cdreviews/covers/empires.jpg")'
       }
     },
     vuex: {
-      getters: { library }
+      getters: { queue }
     }
   }
 </script>

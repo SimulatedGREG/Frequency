@@ -22,20 +22,28 @@
 
 <template>
   <div class="left">
-    <span class="title">Touch the Sky</span>
-    <span class="artist">Hillsong UNITED</span>
+    <span class="title">{{ queue[currentSong].title }}</span>
+    <span class="artist">{{ queue[currentSong].artist }}</span>
   </div>
 </template>
 
 <script>
   import { playByAlbum } from 'src/vuex/actions'
+  import {
+    currentSong,
+    queue
+  } from 'src/vuex/getters'
 
   export default {
     ready () {
       this.playByAlbum('Season One')
     },
     vuex: {
-      actions: { playByAlbum }
+      actions: { playByAlbum },
+      getters: {
+        currentSong,
+        queue
+      }
     }
   }
 </script>
