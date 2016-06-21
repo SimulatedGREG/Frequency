@@ -69,7 +69,8 @@
         }
 
         if (this.currentTimeDrag) this.progress = ((Number(offsetX / 472) * this.duration) / this.duration) * 100
-        if (type === 'mu') this.updateCurrentTime()
+        if (type === 'mu') this.updateCurrentTime(true)
+        if (type === 'mm') this.updateCurrentTime(false)
       },
       bindCurrentTimeEvents () {
         this.$els.currentTime.addEventListener('mousedown', e => this.adjustCurrentTime(e, 'md'))
@@ -77,14 +78,17 @@
         this.$els.currentTime.addEventListener('mousemove', e => this.adjustCurrentTime(e, 'mm'))
         this.$els.currentTime.addEventListener('mouseup', e => this.adjustCurrentTime(e, 'mu'))
       },
-      updateCurrentTime () {
+      updateCurrentTime (update) {
         this.currentTime = (this.progress / 100) * this.duration
-        this.$player.currentTime = this.currentTime
+        if (update) this.$player.currentTime = this.currentTime
       },
       updateDuration (e) {
-        this.currentTime = e.target.currentTime
         this.duration = e.target.duration
-        if (!this.currentTimeDrag) this.progress = (this.currentTime / this.duration) * 100
+
+        if (!this.currentTimeDrag) {
+          this.currentTime = e.target.currentTime
+          this.progress = (this.currentTime / this.duration) * 100
+        }
       }
     },
     ready () {
