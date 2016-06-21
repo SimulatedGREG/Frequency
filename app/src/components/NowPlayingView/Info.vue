@@ -28,11 +28,14 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
+  import { playByAlbum } from 'src/vuex/actions'
 
-      }
+  export default {
+    ready () {
+      this.playByAlbum('Season One')
+    },
+    vuex: {
+      actions: { playByAlbum }
     }
   }
 </script>

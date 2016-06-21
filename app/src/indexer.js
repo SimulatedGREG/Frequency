@@ -11,17 +11,26 @@ import { remote } from 'electron'
 const dialog = remote.dialog
 
 function parseMetadata (library) {
-  Object.keys(library).forEach(k => {
-    /* eslint-disable no-new */
-    mm(fs.createReadStream(k), (err, metadata) => {
+  // library.forEach(k => {
+  //   mm(fs.createReadStream(k), (err, metadata) => {
+  //     if (err) console.error(err)
+
+  //     metadata.path = k
+
+  //     store.dispatch(UPDATE_SINGLE_INDEX, {
+  //       key: _.uniqueId(),
+  //       metadata
+  //     })
+  //   })
+  // })
+
+  for (let i = 0; i < library.length; i++) {
+    mm(fs.createReadStream(library[i].path), (err, metadata) => {
       if (err) console.error(err)
 
-      store.dispatch(UPDATE_SINGLE_INDEX, {
-        path: k,
-        metadata
-      })
+      store.dispatch(UPDATE_SINGLE_INDEX, library[i].path, metadata)
     })
-  })
+  }
 }
 
 export const index = () => {
@@ -34,9 +43,11 @@ export const index = () => {
 
       files = files.filter(file => /\.mp3$|\.m4a$|\.ogg$|\.flac$/.test(file))
 
-      let library = {}
+      let library = []
       for (let i = 0; i < files.length; i++) {
-        library[files[i]] = null
+        library.push({
+          path: files[i]
+        })
       }
 
       store.dispatch(UPDATE_INDEX, library, parseMetadata)

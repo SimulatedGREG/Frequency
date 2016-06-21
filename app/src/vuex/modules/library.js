@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import mkdirp from 'mkdirp'
 import path from 'path'
 import { LocalStorage } from 'node-localstorage'
@@ -28,8 +29,16 @@ const mutations = {
     state.index = library
     cb(library)
   },
-  [UPDATE_SINGLE_INDEX] (state, { path, metadata }) {
-    state.index[path] = metadata
+  [UPDATE_SINGLE_INDEX] (state, p, metadata) {
+    let i
+    state.index.find((t, pos) => {
+      if (t.path === p) {
+        i = pos
+        return true
+      } else return false
+    })
+
+    state.index[i] = _.assign(state.index[i], metadata)
   }
 }
 
