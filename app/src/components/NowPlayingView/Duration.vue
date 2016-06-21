@@ -21,11 +21,11 @@
 
 <template>
   <div class="markers">
-    <span class="left">1:33</span>
-    <span class="right">5:42</span>
+    <span class="left">{{ currentTime | timeStamp }}</span>
+    <span class="right">{{ duration | timeStamp }}</span>
   </div>
   <div class="progress-bar">
-    <div class="progress" style="width: 27%;"></div>
+    <div class="progress" :style="{ width: progress + '%' }"></div>
   </div>
 </template>
 
@@ -33,8 +33,28 @@
   export default {
     data () {
       return {
-
+        currentTime: '0:00',
+        duration: '0:00',
+        progress: 0
       }
+    },
+    filters: {
+      timeStamp (time) {
+        time = Math.floor(time)
+        let mins = time >= 60 ? ~~(time / 60) : 0
+        let secs = time - (mins * 60)
+        return `${mins}:${secs}`
+      }
+    },
+    methods: {
+      updateDuration (e) {
+        this.currentTime = e.target.currentTime
+        this.duration = e.target.duration
+        this.progress = (this.currentTime / this.duration) * 100
+      }
+    },
+    ready () {
+      this.$player.addEventListener('timeupdate', e => this.updateDuration(e))
     }
   }
 </script>

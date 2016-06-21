@@ -100,8 +100,7 @@
     data () {
       return {
         isPlaying: false,
-        player: this.$root.$els.player,
-        volume: 0.3
+        volume: 0.05
       }
     },
     methods: {
@@ -109,8 +108,8 @@
         console.log(e)
       },
       togglePlayback () {
-        if (this.isPlaying) this.player.pause()
-        else this.player.play()
+        if (this.isPlaying) this.$player.pause()
+        else this.$player.play()
 
         this.isPlaying = !this.isPlaying
       }
@@ -120,7 +119,7 @@
     },
     watch: {
       'volume' (val) {
-        this.player.volume = val
+        this.$player.volume = val
       }
     }
   }

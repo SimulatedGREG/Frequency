@@ -10,9 +10,14 @@ import './globalShortcuts'
 Vue.use(Electron)
 Vue.use(Resource)
 Vue.use(Router)
+
 Vue.config.debug = true
 
 const router = new Router()
+
+window.bindAudio = () => {
+  Vue.prototype.$player = document.getElementsByTagName('audio')[0]
+}
 
 router.map(routes)
 router.beforeEach(() => {
