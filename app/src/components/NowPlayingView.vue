@@ -31,8 +31,8 @@
 </style>
 
 <template>
-  <div class="bg" :style="{ backgroundImage: artwork }">
-    <div class="bottom-bg" :style="{ backgroundImage: 'linear-gradient(rgba(0 ,0 ,0, .6), rgba(0 ,0 ,0, .6)),' + artwork }"></div>
+  <div class="bg" :style="{ backgroundImage: 'url(' + artwork + ')' }">
+    <div class="bottom-bg" :style="{ backgroundImage: 'linear-gradient(rgba(0 ,0 ,0, .6), rgba(0 ,0 ,0, .6)),' + 'url(' + artwork + ')' }"></div>
     <div class="bottom">
       <duration></duration>
       <div>
@@ -47,7 +47,12 @@
   import Controls from './NowPlayingView/Controls'
   import Duration from './NowPlayingView/Duration'
   import Info from './NowPlayingView/Info'
-  import { queue } from 'src/vuex/getters'
+  import fs from 'fs'
+  import mm from 'musicmetadata'
+  import {
+    currentSong,
+    queue
+  } from 'src/vuex/getters'
 
   export default {
     components: {
@@ -55,14 +60,33 @@
       Duration,
       Info
     },
-    computed: {
-      artwork () {
-        // this.queue[0]
-        return 'url("http://www.jesusfreakhideout.com/cdreviews/covers/empires.jpg")'
+    data () {
+      return {
+        artwork: 0
       }
     },
+    methods: {
+      getArtwork () {
+        mm(fs.createReadStream(this.queue[this.currentSong].path), (err, metadata) => {
+          if (err) console.log(err)
+
+          this.artwork = `data:image/${metadata.picture[0].format};base64,` + btoa(String.fromCharCode.apply(null, (metadata.picture[0].data)))
+        })
+      }
+    },
+    ready () {
+      this.$player.addEventListener('play', e => this.getArtwork(e))
+    },
     vuex: {
-      getters: { queue }
+      getters: {
+        currentSong,
+        queue
+      }
+    },
+    watch: {
+      'currentSong' () {
+        this.getArtwork()
+      }
     }
   }
 </script>
